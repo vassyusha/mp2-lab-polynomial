@@ -185,12 +185,7 @@ public:
 		for (; it != l.end(); ++it) {
 			ostr << l.at(it) << " ";
 		}
-		ostr << l.at(it);
-		//Node* curr = this->first;
-		//while (curr) {
-		//	ostr << curr->value << " ";
-		//	curr = curr->next;
-		//}
+
 		return ostr;
 	}
 };
