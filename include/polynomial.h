@@ -3,6 +3,8 @@
 #include <string>
 #include <iostream>
 
+class Polynomial;
+
 class Monomial {
 private:
 
@@ -22,7 +24,9 @@ public:
 
 	bool operator>(const Monomial& other) {
 		if (this->x > other.x) return true;
+		if (this->x < other.x) return false;
 		if (this->y > other.y) return true;
+		if (this->y < other.y) return false;
 		if (this->z > other.z) return true;
 		return false;
 	}
