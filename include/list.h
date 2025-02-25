@@ -34,7 +34,7 @@ public:
 
 	void clear() {
 		Node* curr;
-		while (this->head->next != this->head) {
+		while (this->head && this->head->next != this->head) {
 			curr = this->head->next->next;
 			delete this->head->next;
 			this->head->next = curr;
@@ -62,7 +62,7 @@ public:
 		}
 	}
 
-	TList& operator=(const TList& other) {//operator=
+	TList& operator=(const TList& other) {//operator= тут какая-то лажа, требуется отладка
 		if (this == &other) return *this;
 		this->clear();
 		this->sz = other.sz;
@@ -72,10 +72,8 @@ public:
 			Node* curr1 = other.head->next;
 			Node* curr2 = new Node(this->head, curr1->value);
 			this->head->next = curr2;
-			while (!curr1) {
-				Node* next1 = curr1->next;
-				if (!next1) break;
-				curr2->next = new Node(this->head, next1->value);
+			while (curr1->next!= other.head) {
+				curr2->next = new Node(this->head, curr1->next->value);
 				curr2 = curr2->next;
 				curr1 = curr1->next;
 			}
@@ -127,10 +125,6 @@ public:
 			return (this->it == iter.it);
 		}
 	};
-
-	iterator get_head() const {
-		return iterator(this->head);
-	}
 
 	iterator begin() const {
 		return iterator(this->head->next);
