@@ -1,11 +1,22 @@
 #include "polynomial.h"
 
-bool Monomial::operator==(const Monomial& other) {
+Monomial::Monomial(double score, int x, int y, int z) {
+	if (x < 0 || y < 0 || z < 0 || x >10 || y > 10 || z>10) throw "powers should be in [0,10]";
+	this->score = score;
+	this->x = x;
+	this->y = y;
+	this->z = z;
+}
+
+bool Monomial::operator==(const Monomial& other)const {
 	if (this->x == other.x && this->y == other.y && this->z == other.z) return true;
 	else return false;
 }
+bool Monomial::operator!=(const Monomial& other)const {
+	return !((*this) == other);
+}
 
-bool Monomial::operator>(const Monomial& other) {
+bool Monomial::operator>(const Monomial& other)const {
 	if (this->x > other.x) return true;
 	if (this->x < other.x) return false;
 	if (this->y > other.y) return true;
@@ -14,7 +25,7 @@ bool Monomial::operator>(const Monomial& other) {
 	return false;
 }
 
-bool Monomial::operator<(const Monomial& other) {
+bool Monomial::operator<(const Monomial& other)const {
 	if ((*this) == other || (*this) > other) return false;
 	return true;
 }

@@ -16,13 +16,14 @@ private:
 	
 public:
 
-	Monomial(double score = 0., int x = 0, int y = 0, int z = 0) : score(score), x(x), y(y), z(z) {}
+	Monomial(double score = 0., int x = 0, int y = 0, int z = 0);
 
-	bool operator==(const Monomial& other);
+	bool operator==(const Monomial& other) const;
+	bool operator!=(const Monomial& other) const;
 
-	bool operator>(const Monomial& other);
+	bool operator>(const Monomial& other) const;
 
-	bool operator<(const Monomial& other);
+	bool operator<(const Monomial& other) const;
 
 	Monomial operator+(const Monomial& other);
 
