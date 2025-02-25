@@ -2,6 +2,7 @@
 
 #include <string>
 #include <iostream>
+#include "list.h"
 
 class Polynomial;
 
@@ -17,30 +18,50 @@ public:
 
 	Monomial(double score = 0., int x = 0, int y = 0, int z = 0) : score(score), x(x), y(y), z(z) {}
 
-	bool operator==(const Monomial& other) {
-		if (this->x == other.x && this->y == other.y && this->z == other.z) return true;
-		else return false;
+	bool operator==(const Monomial& other);
+
+	bool operator>(const Monomial& other);
+
+	bool operator<(const Monomial& other);
+
+	Monomial operator+(const Monomial& other);
+
+	Monomial operator*(const Monomial& other);
+
+	friend ostream& operator<<(ostream& ostr, const Monomial& m)
+	{
+		ostr << m.score << "x^" << m.x << "y^" << m.y << "z^" << m.z << " ";
+
+		return ostr;
 	}
 
-	bool operator>(const Monomial& other) {
-		if (this->x > other.x) return true;
-		if (this->x < other.x) return false;
-		if (this->y > other.y) return true;
-		if (this->y < other.y) return false;
-		if (this->z > other.z) return true;
-		return false;
-	}
-
-	bool operator<(const Monomial& other) {
-		if ((*this) == other || (*this) > other) return false;
-		return true;
-	}
+	double get_score() const { return this->score; }
 
 };
 
-class Polinomial {
+class Polynomial {
 private:
 
+	TList<Monomial> poly;
+
 public:
+
+	Polynomial() {};
+	Polynomial(const Monomial& mon) {
+		poly.insert(mon, poly.end());
+	}
+
+	Polynomial operator+(const Polynomial& other) const;
+
+	Polynomial operator*(const Monomial& m) const;
+
+	Polynomial operator*(const Polynomial& other) const;
+
+	friend ostream& operator<<(ostream& ostr, const Polynomial& p)
+	{
+		ostr << p.poly;
+
+		return ostr;
+	}
 
 };
