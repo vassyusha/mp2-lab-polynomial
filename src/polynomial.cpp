@@ -9,11 +9,20 @@ Monomial::Monomial(double score, int x, int y, int z) {
 }
 
 bool Monomial::operator==(const Monomial& other)const {
-	if (this->x == other.x && this->y == other.y && this->z == other.z) return true;
+	if (this->x == other.x && this->y == other.y && this->z == other.z && abs(this->score - other.score) < 10e-5) return true;
 	else return false;
 }
 bool Monomial::operator!=(const Monomial& other)const {
 	return !((*this) == other);
+}
+
+bool Monomial::sim(const Monomial & other) const {
+	if (this->x == other.x && this->y == other.y && this->z == other.z) return true;
+	else return false;
+}
+
+bool Monomial::dif(const Monomial& other) const {
+	return !(this->sim(other));
 }
 
 bool Monomial::operator>(const Monomial& other)const {
@@ -31,7 +40,7 @@ bool Monomial::operator<(const Monomial& other)const {
 }
 
 Monomial Monomial::operator+(const Monomial& other) {
-	if (!((*this) == other)) throw "you are going to create polynomial, please, chose another method";
+	if (this->dif(other)) throw "you are going to create polynomial, please, chose another method";
 	return Monomial(this->score + other.score, this->x, this->y, this->z);
 }
 
@@ -53,7 +62,7 @@ Polynomial Polynomial::operator+(const Polynomial& other) const {
 				++it1;
 			}
 			else {
-				if (this->poly.at(it1) == other.poly.at(it2)) {
+				if (this->poly.at(it1).sim(other.poly.at(it2))) {
 					it = p.poly.insert(this->poly.at(it1) + other.poly.at(it2), it);
 					++it1;
 					++it2;
@@ -88,4 +97,13 @@ Polynomial Polynomial::operator*(const Polynomial& other) const {
 		p = p + p1;
 	}
 	return p;
+}
+
+bool Polynomial::operator==(const Polynomial& other)const{
+	if (this->poly == other.poly) return true;
+	return false;
+}
+
+bool Polynomial::operator!=(const Polynomial& other)const {
+	return !((*this) == other);
 }

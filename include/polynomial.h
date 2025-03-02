@@ -21,6 +21,10 @@ public:
 	bool operator==(const Monomial& other) const;
 	bool operator!=(const Monomial& other) const;
 
+	bool sim(const Monomial& other) const;
+	bool dif(const Monomial& other) const;
+
+
 	bool operator>(const Monomial& other) const;
 
 	bool operator<(const Monomial& other) const;
@@ -57,6 +61,9 @@ public:
 	Polynomial operator*(const Monomial& m) const;
 
 	Polynomial operator*(const Polynomial& other) const;
+
+	bool operator==(const Polynomial& other) const;
+	bool operator!=(const Polynomial& other) const;
 
 	friend ostream& operator<<(ostream& ostr, const Polynomial& p)
 	{

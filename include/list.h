@@ -157,19 +157,19 @@ public:
 
 
 	//сравнение
-	bool operator==(const TList& other) {
+	bool operator==(const TList& other) const {
 		if (this->sz != other.sz) return false;
 
-		Node* curr1 = this->head, curr2 = other.head;
-		for (int i = 0; i < this->sz + 1; i++) {
-			if (curr1 != curr2) return false;
-			curr1 = curr1->next;
-			curr2 = curr2->next;
+		TList::iterator curr1 = this->begin(), curr2 = other.begin();
+		for (; curr1 != this->end();) {
+			if (this->at(curr1) != this->at(curr2)) return false;
+			++curr1;
+			++curr2;
 		}
 		return true;
 	}
 
-	bool operator!=(const TList& other) {
+	bool operator!=(const TList& other) const{
 		return !((*this) == other);
 	}
 
